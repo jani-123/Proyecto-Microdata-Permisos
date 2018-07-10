@@ -1,0 +1,108 @@
+.mydate{
+    padding: 0 10% 0 10%;
+    width: 100%;
+}
+
+.react-datepicker__time-container {
+    float: left !important;
+    border-left: 1px solid #aeaeae;
+}
+
+.react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+    list-style: none;
+    margin: 0;
+    height: calc(195px + (1.7rem / 2));
+    overflow-y: scroll;
+    padding-left: 0px !important;
+    width: 100%;
+}
+
+.optiontoggle{
+    margin-bottom: 20px;
+}
+
+.react-datepicker__input-container input {
+    padding: 0 5% 0 5%;
+    margin: 0;
+    width: 110%;
+}
+
+.solicitud{
+    margin-top: 50px;
+    border: 2px solid black;
+     border-radius: 8px;
+    padding: 15px;
+    z-index: 1;
+}
+
+.detalles{
+  
+    margin-top: 50px;
+    border: 2px solid black;
+     border-radius: 8px;
+    padding: 15px;
+    z-index: 1;
+
+}
+
+.imagen_portada{
+    display: inline-block;
+}
+.titulo_portada{
+    display: inline-block;
+}
+#logoPortada{
+    text-align: right;
+    margin-top: 13px;
+}
+.header{
+    border-bottom: 2px solid black;
+}
+
+.request{
+    margin-top: 10px;
+}
+
+.request h2{
+    text-align: center;
+    color: black;  
+}
+
+.enviar{
+    border-radius: 5px;
+    color: white;
+    background: #005c91;
+    width: 100px;
+}
+
+.checkSelect {
+    display: flex;
+
+}
+.historial h2{
+    text-align: center;
+    color: black;
+    margin-bottom: 30px;
+}
+
+
+.info-details{
+    margin-top: 20px;
+    color: black;
+    border-bottom: 1px solid black;    
+}
+.otorgado{
+    color: black;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 600px){
+.request h2{
+    font-size: 17px; 
+}
+
+.imagen_portada{
+   width: 30%;
+}
+
+}

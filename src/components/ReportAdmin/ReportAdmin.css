@@ -1,0 +1,14 @@
+.btn-export {
+    background: transparent;
+    border: 3px solid #005c91;
+    border-radius: 10px;
+    width: 30%;
+    height: 50px;
+    color: black;
+    font-size: 17px;
+    margin-bottom: 29px;
+}
+
+.report-admin{
+    margin: 5%;
+}

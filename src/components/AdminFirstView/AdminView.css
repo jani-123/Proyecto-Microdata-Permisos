@@ -1,0 +1,268 @@
+.nav {
+  position:absolute;
+  width:260px;
+  height:100vh;
+  top:0;
+  left:-280px; 
+  padding-top:47px;
+  background-color: #343434;
+  border-right:2px solid #005c91;
+  transition:all .5s ease; 
+}
+     
+  /*Estos son los estilos de la hamburguesa del menú que abre y cierra el mismo*/
+  .menu-toogle {
+    position:absolute; 
+    width: 35px;
+    line-height:1.1;
+    text-align:center;
+    top:6.5px;
+    left: 8px; 
+    border-radius:3px;
+    background-color: #005c91;
+    transition: all .5s ease;
+    z-index:10;
+  }
+    /*Añadimos la haburguesa y le damos unos estilos*/
+    .menu-toogle::before {
+      content:"☰";
+      font-size:32px;
+      color:white;
+    }
+@keyframes latidos {
+    from { transform: none; }
+    50% { transform: scale(1.1); }
+    to { transform: none; }
+}
+/* En la clase corazon vamos a llamar latidos en la animación  */
+.menu-toogle {
+	display: inline-block;
+	text-shadow: 0 0 10px #222,1px 1px  0 #450505;
+	animation: latidos .9s infinite;
+	transform-origin: center;
+}
+
+
+    .paragraph {
+      width:80%;
+      margin:0 auto;
+      text-align:center;
+      font-family:'Source Sans Pro', sans-serif;
+    }
+    .checkbox {
+      display:none; 
+    }
+    .checkbox:checked ~ .nav {
+      left:0px; 
+      position:fixed; 
+      z-index: 3;
+    }
+
+    .checkbox:checked ~ .menu-toogle { 
+      left:208px;
+      position:fixed; 
+    }
+
+.nav h3{
+    color: white;
+}
+
+#close{
+    position: absolute;
+    bottom: 10px;
+    left: 24px;
+    border: 2px solid #005c91;
+    background: transparent;
+    color: white;
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+}
+
+#close:hover{
+    background: white;
+    color: #005c91;
+}
+
+.menu{
+
+    width: 90%;
+}
+
+.botones{
+    width: 90%;
+    height: 60px;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: white;
+    background: #005c91;
+    font-size: 16px;
+}
+.botones:hover{
+    background: #39b341;
+    font-size: 17.3px;
+}
+
+.microdata{
+    margin-top: 245px;
+    padding-left: 30px;
+}
+
+@media screen and (max-width: 768px){
+ .nav {
+
+  width:220px;
+  left:-220px; 
+}
+
+.microdata{
+    margin-top: 275px;
+}
+
+
+.botones{
+    font-size: 14px;
+}
+.botones:hover{
+    background: #39b341;
+    font-size: 15px;
+}
+
+.checkbox:checked ~ .menu-toogle { 
+      left:176px;
+    }
+}
+
+@media screen and (max-width: 1440px){
+ 
+}
+
+
+
+
+/*Estilos del Administrador*/
+
+.nav-admin {
+  position:absolute;
+  width:260px;
+  height:100vh;
+  top:0;
+  left:-280px; 
+  padding-top:47px;
+  background-color: #343434;
+  border-right:2px solid #39b341;
+  transition:all .5s ease; 
+}
+
+  /*Estos son los estilos de la hamburguesa del menú que abre y cierra el mismo*/
+  .menu-toogle-admin {
+    position:absolute; 
+    width: 35px;
+    line-height:1.1;
+    text-align:center;
+    top:6.5px;
+    left: 8px; 
+    border-radius:3px;
+    background-color: #39b341;
+    transition: all .5s ease;
+    z-index:10;
+  }
+    /*Añadimos la haburguesa y le damos unos estilos*/
+    .menu-toogle-admin::before {
+      content:"☰";
+      font-size:32px;
+      color:white;
+    }
+    .paragraph {
+      width:80%;
+      margin:0 auto;
+      text-align:center;
+      font-family:'Source Sans Pro', sans-serif;
+    }
+    .checkbox-admin {
+      display:none; 
+    }
+    .checkbox-admin:checked ~ .nav-admin {
+      left:0px; 
+      position:fixed; 
+      z-index: 1;
+    }
+
+    .checkbox-admin:checked ~ .menu-toogle-admin { 
+      left:208px;
+      position:fixed; 
+    }
+
+.nav-admin h3{
+    color: white;
+}
+
+#close-admin{
+    position: absolute;
+    bottom: 10px;
+    left: 24px;
+    border: 2px solid #39b341;
+    background: transparent;
+    color: white;
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+}
+
+#close-admin:hover{
+    background: white;
+    color: #39b341;
+}
+
+.menu-admin{ 
+    width: 90%;
+}
+
+.botones-admin{
+    width: 90%;
+    height: 60px;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: white;
+    background: #39b341;
+    font-size: 16px;
+    font-family: 'Patua One', cursive;
+    letter-spacing: 0.5px;
+}
+.botones-admin:hover{
+    background: #005c91;
+    font-size: 17.3px;
+}
+.microdata-admin{
+    margin-top: 230px;
+    padding-left: 30px;
+}
+
+@media screen and (max-width: 768px){
+ .nav-admin {
+
+  width:220px;
+  left:-220px; 
+}
+
+.botones-admin{
+    font-size: 12px;
+}
+.botones-admin:hover{
+    background: #39b341;
+    font-size: 15px;
+}
+
+.checkbox-admin:checked ~ .menu-toogle-admin { 
+      left:176px;
+    }
+
+.microdata-admin{
+    margin-top: 270px;
+}
+}
+
+@media screen and (max-width: 1440px){
+ 
+}
+

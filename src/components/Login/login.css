@@ -1,0 +1,77 @@
+#login{
+   /* background:#39b341;*/
+   /*background: #005c91; azul*/
+   height: 100vh; 
+}
+
+.triangle{
+    height: 100vh;
+    width: 306px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url("img/fondo.png") center no-repeat;
+    background-size: cover;
+}
+
+
+
+@media screen and (max-width: 600px){
+.triangle {
+    height: 400px;
+    width: 200px;
+    background-size: cover;
+    }
+}
+
+
+#login{
+   
+    margin: 0 auto;
+}
+.boton{
+    background: transparent;
+    border: 3px solid #005c91;
+    border-radius: 10px;
+    width: 100%;
+    height: 50px;
+    color: black;
+    font-size: 17px;
+    margin-bottom: 29px;
+}
+.boton:hover{
+    background:#005c91;
+    color: white;
+}
+.text-navlink{
+    color: #b2c7d8;
+}
+.text-navlink:hover{
+    color: black;
+}
+#login .input{
+    width: 100%;
+}
+
+#login #n{
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid #343434;
+}
+
+.formulario{
+    padding-top: 100px;
+    text-align: center;
+}
+.formulario img{
+    width: 50%;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 1440px) and (min-width: 768px){
+ .triangle {
+    height:650px;
+    width: 300px;
+    background-size: cover;
+    }
+}
