@@ -3,10 +3,7 @@ import React from "react";
 import {
   Table,
   Button,
-  Grid,
-  Row,
-  Col,
-  Thumbnail
+  Col
 } from 'react-bootstrap';
 import user3 from '../EmployeFirstView/img/user.png';
 import { NavLink, Redirect } from "react-router-dom";

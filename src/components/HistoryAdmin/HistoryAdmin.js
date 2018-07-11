@@ -1,9 +1,8 @@
 import React from "react";
-import { Table, Button, Grid, Row, Col, Thumbnail, FormGroup, ControlLabel, FormControl, FieldGroup } from 'react-bootstrap';
+import { Table, Button, Col, FormGroup, FormControl} from 'react-bootstrap';
 import { NavLink, Redirect } from "react-router-dom";
 import { signOut,changeView } from "../../actions/actions";
 import admin from '../EmployeFirstView/img/admin_woman.png';
-import userportada from '../EmployeFirstView/img/user2.png';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 import './HistoryAdmin.css';
 import '../EmployeFirstView/FirstView.css';

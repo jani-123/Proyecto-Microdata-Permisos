@@ -20,8 +20,8 @@ auth.onAuthStateChanged(user => {
 
   if (user) {
     console.log("user", user);
-    let usersRef = database.ref("/users");
-    let userRef = usersRef.child(user.uid);
+    //let usersRef = database.ref("/users");
+    //let userRef = usersRef.child(user.uid);
     database
       .ref("users/" + user.uid)
       .once("value")

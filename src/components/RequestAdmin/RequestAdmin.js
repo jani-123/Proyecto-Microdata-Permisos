@@ -1,6 +1,5 @@
 import React from "react";
-import { Table, Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ButtonToolbar } from 'react-bootstrap';
-import userportada from '../EmployeFirstView/img/user2.png';
+import { Button, Col} from 'react-bootstrap';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 import { NavLink, Redirect } from "react-router-dom";
 import admin from '../EmployeFirstView/img/admin_woman.png';

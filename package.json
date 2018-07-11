@@ -14,7 +14,8 @@
     "react-html-table-to-excel": "^2.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "redux-zero": "^4.7.0"
+    "redux-zero": "^4.7.0",
+    "yarn-install": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

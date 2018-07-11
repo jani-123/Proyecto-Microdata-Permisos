@@ -1,7 +1,7 @@
 import React from "react";
 import { signOut } from "../../actions/actions";
 import user3 from '../EmployeFirstView/img/user.png';
-import { Table, Button, Grid, Row, Col, Thumbnail } from 'react-bootstrap';
+import {Col } from 'react-bootstrap';
 import { NavLink, Redirect } from "react-router-dom";
 import userportada from '../EmployeFirstView/img/user2.png';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
@@ -40,7 +40,9 @@ const DetailEmploye = ({ successLogin, user, permisos, selectIdDetalle }) => {
 
           <Col xs={12} md={12} className="info-details">
             {
+
               user.movimiento.map((item, index) => {
+                console.log(user.movimiento);
                 if (item.id === selectIdDetalle) {
                   return (
                     <div>

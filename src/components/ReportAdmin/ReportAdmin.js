@@ -8,10 +8,10 @@ import admin from '../EmployeFirstView/img/admin_woman.png';
 import { signOut } from "../../actions/actions";
 
 class Test extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
      
-  }
+  }*/
   render() {
     return (
       <div className="text-center report-admin">

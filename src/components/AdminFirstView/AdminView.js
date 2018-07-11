@@ -4,7 +4,7 @@ import admin from '../EmployeFirstView/img/admin_woman.png';
 import microdata from '../EmployeFirstView/img/logo_microdata.png';
 import { signOut } from "../../actions/actions";
 import { NavLink, Redirect } from "react-router-dom";
-import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 const FirstViewAdmin = ({ successLogin , user}) => {
   return (
