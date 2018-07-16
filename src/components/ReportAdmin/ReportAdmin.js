@@ -60,7 +60,7 @@ const ReportAdmin = ({ successLogin, user , permisos }) => {
       <Col lg={12}>
       
         <input type="checkbox" className="checkbox-admin" id="menu-toogle" />
-        <label for="menu-toogle" className="menu-toogle-admin"></label>
+        <label htmlFor="menu-toogle" className="menu-toogle-admin"></label>
         <nav className="nav-admin">
           <center>
             <img src={admin} alt="" />

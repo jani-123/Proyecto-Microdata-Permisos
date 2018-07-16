@@ -1,0 +1,116 @@
+import store from "../store/store";
+import { auth, database } from "../firebase.js";
+
+export function SignIn(user, pass) {
+  auth.signInWithEmailAndPassword(user, pass)
+} 
+
+export function signOut() {
+  auth.signOut();
+  store.setState({
+    successLogin: false,
+    user: {
+      id: "", 
+      email: ""
+    }
+  });
+}
+
+auth.onAuthStateChanged(user => {
+
+  if (user) {
+    console.log("user", user);
+    //let usersRef = database.ref("/users");
+    //let userRef = usersRef.child(user.uid);
+    database
+      .ref("users/" + user.uid)
+      .once("value")
+      .then(res => {
+        const fullUserInfo = res.val();
+        console.log("full info ", fullUserInfo);
+        store.setState({
+          successLogin: true,
+          user: {
+            id: user.uid,
+            nombres: fullUserInfo.nombres,
+            email: fullUserInfo.email,
+            tipoUser: fullUserInfo.tipoUser,
+            movimiento: fullUserInfo.movimiento
+          }
+        });
+
+        if (fullUserInfo.tipoUser === 'admin') {
+          console.log("linea 43: tipoUsuario",fullUserInfo.tipoUser);
+          let permisos = [];
+          database.ref("/users").once("value").then(res => {
+            res.forEach(snap => {
+              let worker = snap.val()
+              console.log("linea 48: worker", worker);
+              const nombres = worker.nombres;
+              console.log("linea 50: worker.nombres", worker.nombres);
+              const email = worker.email;
+              console.log("linea 52: worker.email", worker.email);
+              const tipo = worker.tipoUser;
+              console.log("linea 54: worker.tipoUser", worker.tipoUser);
+              if (tipo !== 'admin' && worker.movimiento) {
+                console.log("linea 56: worker.movimiento", worker.movimiento );
+                worker.movimiento.forEach(item => {
+                  console.log("linea 58: item", item);
+                  console.log("linea 59: item.estado", item.estado);
+                  if (!item.estado) {
+                    console.log("linea 61: item.estado", item.estado);
+                    console.log("linea 62: array", permisos);
+                    permisos.push(Object.assign(item, {
+                      nombres,
+                      email
+                    }))
+                  }
+                }) 
+              }
+            });
+            store.setState({
+              permisos: permisos
+            });
+          })
+        }
+      });
+  }
+});
+
+export function addDataEmploye(fechaSalida, fechaRetorno, motivoInput, seletinput, ocurrenciaSelect) {
+  console.log("actions line 75: ",fechaSalida,fechaRetorno,motivoInput,seletinput,ocurrenciaSelect);
+  let list = store.getState().solicitaPermiso;
+  let ids;
+    ids = list.length;
+  
+  const objetPermiso = {
+    id: ids,
+    tipoOcurrencia: ocurrenciaSelect,
+    fechaSalida: fechaSalida,
+    fechaRetorno: fechaRetorno,
+    motivo: motivoInput,
+    compensacion: seletinput,
+    estado: false,
+    jefeRRHH: null
+  }
+  list.push(objetPermiso);
+  store.setState({
+    solicitaPermiso: list
+  })
+
+  database
+    .ref("users/" + store.getState().user.id + "/movimiento/" + objetPermiso.id)
+    .set(objetPermiso);
+}
+
+export const changeView = id => {
+  store.setState({
+    selectIdPermisos: id
+  });
+};
+
+export const change = id => {
+  store.setState({
+    selectIdDetalle: id
+  });
+};

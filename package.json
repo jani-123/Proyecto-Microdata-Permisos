@@ -9,6 +9,8 @@
     "moment": "^2.19.4",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
+    "react-bootstrap-table": "^4.3.1",
+    "react-bootstrap-table-next": "^0.1.15",
     "react-datepicker": "^0.61.0",
     "react-dom": "^16.2.0",
     "react-html-table-to-excel": "^2.0.0",

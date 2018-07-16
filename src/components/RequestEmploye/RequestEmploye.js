@@ -41,7 +41,7 @@ class MyDate extends React.Component {
       selected={this.state.startDate}
       onChange={this.handleChange}
       showTimeSelect
-      timeFormat="HH:mm" 
+      timeFormat="HH:mm"
       timeIntervals={15}
       dateFormat="LLL"
     />
@@ -63,7 +63,7 @@ const RequestEmploye = ({ successLogin, user, ocurrencias }) => {
       <Col lg={12}>
         {!successLogin && <Redirect to="/" />}
         <input type="checkbox" className="checkbox" id="menu-toogle" />
-        <label for="menu-toogle" className="menu-toogle"></label>
+        <label htmlFor="menu-toogle" className="menu-toogle"></label>
         <nav className="nav">
           <center>
             <img src={user1} alt="" />
@@ -91,7 +91,8 @@ const RequestEmploye = ({ successLogin, user, ocurrencias }) => {
           <div className="border-request">
             <form onSubmit={e => {
               e.preventDefault();
-              addDataEmploye(this.fechaSalida, this.fechaRetorno, this.motivoInput, this.seletinput.checked, this.ocurrenciaSelect);
+              addDataEmploye(
+                this.fechaSalida, this.fechaRetorno, this.motivoInput, this.seletinput.checked, this.ocurrenciaSelect);
             }}>
               <Col className="request" xs={12} md={12}>
                 <h2>Solicitud de Movimiento de Personal</h2>
@@ -99,7 +100,7 @@ const RequestEmploye = ({ successLogin, user, ocurrencias }) => {
                   <ControlLabel>Seleccione Una ocurrencia</ControlLabel>
                   <FormControl componentClass="select" placeholder="select" onChange={e =>
                     this.ocurrenciaSelect = e.currentTarget.value
-                    
+
                   }>
                     {
                       ocurrencias.map((item, index) => {
@@ -143,7 +144,7 @@ const RequestEmploye = ({ successLogin, user, ocurrencias }) => {
                 <Button type="submit" className="enviar">
                   Enviar
                 </Button>
-                
+
               </Col>
             </form>
           </div>

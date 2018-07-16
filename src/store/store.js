@@ -8,7 +8,8 @@ const Permisos = [
   {ocurrencia: 'Permiso a Essalud'},
   {ocurrencia: 'Vacaciones'},
   {ocurrencia: 'Licencia por fallecimiento'},
-]
+];
+let solicitaPermiso=[];
 const initialState = {
   successLogin: false,
   selectIdPermisos: 0,
@@ -21,7 +22,7 @@ const initialState = {
     movimiento: null
   },
   ocurrencias: Permisos,
-  solicitaPermiso: [],
+  solicitaPermiso: solicitaPermiso,
   permisos : [], 
   historialPermisos : [],
   date: new Date(),

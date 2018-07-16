@@ -10,7 +10,7 @@ export function signOut() {
   store.setState({
     successLogin: false,
     user: {
-      id: "",
+      id: "", 
       email: ""
     }
   });
@@ -20,8 +20,6 @@ auth.onAuthStateChanged(user => {
 
   if (user) {
     console.log("user", user);
-    //let usersRef = database.ref("/users");
-    //let userRef = usersRef.child(user.uid);
     database
       .ref("users/" + user.uid)
       .once("value")
@@ -39,45 +37,23 @@ auth.onAuthStateChanged(user => {
           }
         });
 
-        if (fullUserInfo.tipoUser === 'admin') {
-          let permisos = [];
-          database.ref("/users").once("value").then(res => {
-            res.forEach(snap => {
-              let worker = snap.val()
-              console.log(worker);
-              const nombres = worker.nombres;
-              const email = worker.email;
-              const tipo = worker.tipoUser;
-              if (tipo !== 'admin' && worker.movimiento) {
-                console.log("movimiento", worker );
-                  
-                worker.movimiento.forEach(item => {
-                  console.log("12", item);
-                  console.log("data", item.estado);
-                  if (!item.estado) {
-                    console.log("condicion", item.estado)
-                    permisos.push(Object.assign(item, {
-                      nombres,
-                      email
-                    }))
-                  }
-                }) 
-              }
-            });
-            store.setState({
-              permisos: permisos
-            });
-          })
-        }
+       
       });
   }
 });
 
-export function addDataEmploye(fechaSalida, fechaRetorno, motivoInput, seletinput, ocurrenciaSelect) {
+export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinput, ocurrenciaSelect)=> {
   console.log("actions line 75: ",fechaSalida,fechaRetorno,motivoInput,seletinput,ocurrenciaSelect);
-  let list = store.getState().solicitaPermiso;
+  console.log("linea 47",store.getState())
+  
+  let list = [...store.getState().solicitaPermiso];
+  
+  console.log("linea 49", store.getState())
   let ids;
+  console.log("line 49: " , list.length);
+  if (list !== undefined) {
     ids = list.length;
+  }
   
   const objetPermiso = {
     id: ids,
@@ -89,11 +65,7 @@ export function addDataEmploye(fechaSalida, fechaRetorno, motivoInput, seletinpu
     estado: false,
     jefeRRHH: null
   }
-  list.push(objetPermiso);
-  store.setState({
-    solicitaPermiso: list
-  })
-
+  
   database
     .ref("users/" + store.getState().user.id + "/movimiento/" + objetPermiso.id)
     .set(objetPermiso);
@@ -110,41 +82,3 @@ export const change = id => {
     selectIdDetalle: id
   });
 };
-
-/*function readDataBoard() {
-  database.ref("users/" + store.getState().user.id + "/boards/").on("value", res => {
-      let arrBoard = [];
-      res.forEach(snap => {
-        const boardVal = snap.val();
-        console.log("on",boardVal);
-        let arrList = [];
-        database.ref("users/" + store.getState().user.id + "/boards/" + boardVal.id + "/noteList/").on("value", res => {
-          res.forEach(snap => {
-            const listVal = snap.val();
-            console.log("sisalej..",listVal);
-            let arrCard = [];
-            database.ref("users/" + store.getState().user.id + "/boards/" + boardVal.id + "/noteList/" + listVal.id + "/cards/").on("value", res =>{
-              res.forEach(snap => {
-                const cardVal = snap.val();
-                arrCard.push(cardVal);
-              })
-            })
-            arrList.push({
-              id: listVal.id,
-              subtitle: listVal.subtitle,
-              cards: arrCard,
-              change: listVal.change
-            })
-          })
-        })
-        arrBoard.push({
-          id: boardVal.id,
-          title: boardVal.title,
-          noteList: arrList
-        })
-      });
-      store.setState({
-        boards: arrBoard
-      });
-    });
-}*/

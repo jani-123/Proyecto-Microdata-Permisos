@@ -7,8 +7,9 @@ import logoportada from '../EmployeFirstView/img/logo_portada.png';
 import { NavLink, Redirect } from "react-router-dom";
 
 const DetailAdmin = ({ successLogin, user , permisos , selectIdPermisos}) => {
+  console.log("permisos", permisos);
   return (
-    <div>
+    <div> 
       {!successLogin && <Redirect to="/" />}
       <input type="checkbox" className="checkbox-admin" id="menu-toogle" />
       <label for="menu-toogle" className="menu-toogle-admin"></label>
@@ -40,6 +41,7 @@ const DetailAdmin = ({ successLogin, user , permisos , selectIdPermisos}) => {
 
           <Col xs={12} md={12} className="info-details">
           {
+            
             permisos.map((item,index)=>{
               if(item.id === selectIdPermisos){
                 return (

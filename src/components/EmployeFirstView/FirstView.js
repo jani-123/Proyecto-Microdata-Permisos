@@ -9,10 +9,10 @@ import { Col} from 'react-bootstrap';
 const FirstViewEmploye = ({ successLogin, user }) => {
   return (
     <div>
-      <Col lg={12}>
+      <Col lg={12}> 
         {!successLogin && <Redirect to="/" />}
         <input type="checkbox" className="checkbox" id="menu-toogle" />
-        <label for="menu-toogle" className="menu-toogle"></label>
+        <label htmlFor="menu-toogle" className="menu-toogle"></label>
         <nav className="nav">
           <center>
             <img src={user0} alt="" />

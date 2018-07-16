@@ -1,10 +1,11 @@
 
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Table,
   Button,
   Col
 } from 'react-bootstrap';
+/*import BootstrapTable from 'react-bootstrap-table-next';*/
 import user3 from '../EmployeFirstView/img/user.png';
 import { NavLink, Redirect } from "react-router-dom";
 import { signOut, change } from "../../actions/actions";
@@ -12,13 +13,14 @@ import '../RequestEmploye/RequestEmploye.css';
 import userportada from '../EmployeFirstView/img/user2.png';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 
-const HistoryEmploye = ({ successLogin, user, permisos }) => {
+const HistoryEmploye = ({ successLogin, user }) => {
+  console.log("linea 17:", user);
   return (
     <div>
       <Col lg={12}>
         {!successLogin && <Redirect to="/" />}
         <input type="checkbox" className="checkbox" id="menu-toogle" />
-        <label for="menu-toogle" className="menu-toogle"></label>
+        <label htmlFor="menu-toogle" className="menu-toogle"></label>
         <nav className="nav">
           <center>
             <img src={user3} alt="" />
@@ -43,38 +45,34 @@ const HistoryEmploye = ({ successLogin, user, permisos }) => {
             <Col className="historial" xs={12} md={12}>
               <h2>Historial de ocurrencias</h2>
             </Col>
-              <Col xs={12} md={12}>
-                <h1>Historial</h1>
-                <Table responsive>
-                  {
-                    user.movimiento.map((item, index) => {
-                      return (
-                        <thead>
-                          <tr>
-                            <th>Fecha</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                          </tr>
-                          <tbody>
-                            <td>{item.fechaSalida}</td>
-                            <td>{item.tipoOcurrencia}</td>
-                            <td>{item.estado}</td>
-                            <td><NavLink to='/DetailEmploye' onClick={() => {
-                              change(item.id);
-                            }}><Button>Ver más</Button></NavLink></td>
-                          </tbody>
-                        </thead>
-                      )
-                    })
-                  }
-                </Table>
-              </Col>
+            <Col xs={12} md={12}>
+              <h1>Historial</h1>
+              <table>
+                <tbody>
+                  {user.movimiento.map((item, index) => {
+                    return (
+                      <Fragment>
+                        <tr key={index}>
+                          <td>{item.fechaSalida}</td>
+                          <td>{item.tipoOcurrencia}</td>
+                          <td>{item.estado}</td>
+                          <td><NavLink to='/DetailEmploye' onClick={() => {
+                            change(index);
+                          }}><Button>Ver más</Button></NavLink></td>
+                        </tr>
+                      </Fragment>
+                    );
+                  })}
+                </tbody>
+              </table>
+
             </Col>
           </Col>
-          <div className="triangle"></div>
+        </Col>
+        <div className="triangle"></div>
       </Col>
-     </div>
-        );
+    </div>
+  );
 };
 
 export default HistoryEmploye;
