@@ -67,6 +67,36 @@ auth.onAuthStateChanged(user => {
           }
         });
           readDataPermiso();
+          if (fullUserInfo.tipoUser === 'admin') {
+          let permisos = [];
+          database.ref("/users").once("value").then(res => {
+            res.forEach(snap => {
+              let worker = snap.val()
+              console.log(worker);
+              const nombres = worker.nombres;
+              const email = worker.email;
+              const tipo = worker.tipoUser;
+              if (tipo !== 'admin' && worker.movimiento) {
+                console.log("movimiento", worker );
+                  
+                worker.movimiento.forEach(item => {
+                  console.log("12", item);
+                  console.log("data", item.estado);
+                  if (!item.estado) {
+                    console.log("condicion", item.estado)
+                    permisos.push(Object.assign(item, {
+                      nombres,
+                      email
+                    }))
+                  }
+                }) 
+              }
+            });
+            store.setState({
+              permisos: permisos
+            });
+          })
+        }
       });
   }
 });

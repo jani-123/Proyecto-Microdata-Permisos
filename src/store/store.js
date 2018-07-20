@@ -13,7 +13,7 @@ const Permisos = [
 const initialState = {
   successLogin: false,
   selectIdPermisos: 0,
-  selectIdDetalle: 0,
+  selectIdDetalle: 0,// usa para el detalle del permiso
   user: { // para el usuario
     id: null,
     nombres: null,
@@ -22,6 +22,7 @@ const initialState = {
   },
   ocurrencias: Permisos, // para lista de casos de permisos
   movimientos: [], // para los permisos-movimiento
+  permisos: [],
   date: new Date(), // fecha
   active:false // login
 };

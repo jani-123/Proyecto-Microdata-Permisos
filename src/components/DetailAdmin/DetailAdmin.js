@@ -46,7 +46,7 @@ const DetailAdmin = ({ successLogin, user , permisos , selectIdPermisos}) => {
               if(item.id === selectIdPermisos){
                 return (
                   <div>
-                    <h4>Solicitado por: {user.nombre}</h4>
+                    <h4>Solicitado por: {item.nombres}</h4>
                     <h4>Fecha/Hora Salida {item.fechaSalida}</h4>
                     <h4>Fecha/Hora Retorno {item.fechaRetorno}</h4>
                     <h4>Tipo de permiso: {item.tipoOcurrencia}</h4>
