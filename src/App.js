@@ -15,14 +15,14 @@ import HistoryAdmin from "./components/HistoryAdmin/HistoryAdmin.js";
 import { connect } from "redux-zero/react";
 import { HashRouter, Switch, Route } from "react-router-dom"; 
 
-const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle}) => {
+const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos}) => {
   return <HashRouter>
     <Switch>
       <Route exact path="/" render={() => <Login successLogin={successLogin} user={user} />} />
       <Route path="/Employe" render={() => <FirstViewEmploye successLogin={successLogin} user={user} />} />
-      <Route path="/RequestEmploye" render={() => <RequestEmploye successLogin={successLogin} user={user} ocurrencias={ocurrencias}/>} />
-      <Route path="/DetailEmploye" render={() => <DetailEmploye successLogin={successLogin} user={user} selectIdDetalle={selectIdDetalle} />} />
-      <Route path="/HistoryEmploye" render={() => <HistoryEmploye successLogin={successLogin} user={user} selectIdDetalle={selectIdDetalle}/>} />
+      <Route path="/RequestEmploye" render={() => <RequestEmploye successLogin={successLogin} user={user} ocurrencias={ocurrencias} movimientos={movimientos}/>} />
+      <Route path="/DetailEmploye" render={() => <DetailEmploye successLogin={successLogin} user={user} selectIdDetalle={selectIdDetalle} movimientos={movimientos}/>} />
+      <Route path="/HistoryEmploye" render={() => <HistoryEmploye successLogin={successLogin} user={user} selectIdDetalle={selectIdDetalle} movimientos={movimientos}/>} />
 
       <Route path="/Admin" render={() => <FirstViewAdmin  successLogin={successLogin} user={user}/>} />  
       <Route path="/ReportAdmin" render={() => <ReportAdmin successLogin={successLogin} user={user} permisos={permisos} />} />
@@ -32,5 +32,5 @@ const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectI
     </Switch>
   </HashRouter>;
 };
-const mapToProps = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle }) => ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle});
+const mapToProps = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos }) => ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos});
 export default connect(mapToProps)(MicroDataApp);

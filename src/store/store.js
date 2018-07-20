@@ -9,25 +9,21 @@ const Permisos = [
   {ocurrencia: 'Vacaciones'},
   {ocurrencia: 'Licencia por fallecimiento'},
 ];
-let solicitaPermiso=[];
+
 const initialState = {
   successLogin: false,
   selectIdPermisos: 0,
   selectIdDetalle: 0,
-  user: {
+  user: { // para el usuario
     id: null,
     nombres: null,
     email: null,
     tipoUser: null,
-    movimiento: null
   },
-  ocurrencias: Permisos,
-  solicitaPermiso: solicitaPermiso,
-  permisos : [], 
-  historialPermisos : [],
-  date: new Date(),
-  
-  active:false
+  ocurrencias: Permisos, // para lista de casos de permisos
+  movimientos: [], // para los permisos-movimiento
+  date: new Date(), // fecha
+  active:false // login
 };
 
 const store = createStore(initialState);

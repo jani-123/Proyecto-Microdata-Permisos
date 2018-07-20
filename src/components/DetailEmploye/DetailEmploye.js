@@ -7,10 +7,10 @@ import userportada from '../EmployeFirstView/img/user2.png';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 import "../RequestEmploye/RequestEmploye.css";
 
-const DetailEmploye = ({ successLogin, user, selectIdDetalle }) => { 
+const DetailEmploye = ({ successLogin, user, selectIdDetalle, movimientos }) => { 
   return (
     <div> 
-      {!successLogin && <Redirect to="/" />}
+      {!successLogin && <Redirect exact to="/#" />}
       <input type="checkbox" className="checkbox" id="menu-toogle" />
       <label htmlFor="menu-toogle" className="menu-toogle"></label>
       <nav className="nav">
@@ -41,8 +41,7 @@ const DetailEmploye = ({ successLogin, user, selectIdDetalle }) => {
           <Col xs={12} md={12} className="info-details">
             {
 
-              user.movimiento.map((item, index) => {
-                console.log(user.movimiento);
+              movimientos.map((item, index) => {
                 if (index === selectIdDetalle) {
                   return (
                     <div>

@@ -48,7 +48,7 @@ class MyDate extends React.Component {
   }
 }
 
-const RequestEmploye = ({ successLogin, user, ocurrencias }) => {
+const RequestEmploye = ({ successLogin, user, ocurrencias, movimientos}) => {
   const begin = date => {
     this.fechaSalida = date.toString();
     console.log(this.fechaSalida);
@@ -61,7 +61,7 @@ const RequestEmploye = ({ successLogin, user, ocurrencias }) => {
   return (
     <div>
       <Col lg={12}>
-        {!successLogin && <Redirect to="/" />}
+        {!successLogin && <Redirect exact to="/#" />}
         <input type="checkbox" className="checkbox" id="menu-toogle" />
         <label htmlFor="menu-toogle" className="menu-toogle"></label>
         <nav className="nav">

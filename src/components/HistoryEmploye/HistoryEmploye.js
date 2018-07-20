@@ -13,12 +13,12 @@ import '../RequestEmploye/RequestEmploye.css';
 import userportada from '../EmployeFirstView/img/user2.png';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 
-const HistoryEmploye = ({ successLogin, user }) => {
-  console.log("linea 17:", user);
+const HistoryEmploye = ({ successLogin, user, movimientos }) => {
+  console.log("linea 17:", movimientos);
   return (
     <div>
       <Col lg={12}>
-        {!successLogin && <Redirect to="/" />}
+        {!successLogin && <Redirect exact to="/#" />}
         <input type="checkbox" className="checkbox" id="menu-toogle" />
         <label htmlFor="menu-toogle" className="menu-toogle"></label>
         <nav className="nav">
@@ -49,7 +49,7 @@ const HistoryEmploye = ({ successLogin, user }) => {
               <h1>Historial</h1>
               <table>
                 <tbody>
-                  {user.movimiento.map((item, index) => {
+                  {movimientos.map((item, index) => {
                     return (
                       <Fragment>
                         <tr key={index}>

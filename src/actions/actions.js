@@ -16,6 +16,37 @@ export function signOut() {
   });
 }
 
+/*export function SignIn(user, pass) {
+  auth.signInWithEmailAndPassword(user, pass).then(userObj => {
+    database
+      .ref("users/" + userObj.uid)
+      .once("value")
+      .then(res => {
+        const fullUserInfo = res.val();
+        console.log("full info ", fullUserInfo);
+        store.setState({
+          user: {
+            id: userObj.uid,
+            nombres: fullUserInfo.nombres,
+            email: fullUserInfo.email,
+            tipoUser: fullUserInfo.tipoUser,
+          }
+        });
+          readDataPermiso();
+      });
+  });
+}*/
+/*auth.onAuthStateChanged(user => {
+ 
+  if (user) {
+    console.log("user", user);
+    let usersRef = database.ref("/users");
+    let userRef = usersRef.child(user.uid);
+    store.setState({
+      successLogin: true
+    });
+  }
+});*/
 auth.onAuthStateChanged(user => {
 
   if (user) {
@@ -33,24 +64,16 @@ auth.onAuthStateChanged(user => {
             nombres: fullUserInfo.nombres,
             email: fullUserInfo.email,
             tipoUser: fullUserInfo.tipoUser,
-            movimiento: fullUserInfo.movimiento
           }
         });
-
-       
+          readDataPermiso();
       });
   }
 });
 
 export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinput, ocurrenciaSelect)=> {
-  console.log("actions line 75: ",fechaSalida,fechaRetorno,motivoInput,seletinput,ocurrenciaSelect);
-  console.log("linea 47",store.getState())
-  
-  let list = [...store.getState().solicitaPermiso];
-  
-  console.log("linea 49", store.getState())
+  let list = store.getState().movimientos;
   let ids;
-  console.log("line 49: " , list.length);
   if (list !== undefined) {
     ids = list.length;
   }
@@ -65,7 +88,7 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
     estado: false,
     jefeRRHH: null
   }
-  
+
   database
     .ref("users/" + store.getState().user.id + "/movimiento/" + objetPermiso.id)
     .set(objetPermiso);
@@ -82,3 +105,25 @@ export const change = id => {
     selectIdDetalle: id
   });
 };
+
+function readDataPermiso() {
+  database.ref("users/" + store.getState().user.id + "/movimiento/").on("value", res => {
+      let newMovimiento = [];
+      res.forEach(snap => {
+        const nexMovimiento = snap.val();
+        newMovimiento.push({
+          id: nexMovimiento.id,
+          tipoOcurrencia: nexMovimiento.tipoOcurrencia,
+          fechaSalida: nexMovimiento.fechaSalida,
+          fechaRetorno: nexMovimiento.fechaRetorno,
+          motivo: nexMovimiento.motivo,
+          compensacion: nexMovimiento.compensacion,
+          estado: nexMovimiento.estado,
+          jefeRRHH: nexMovimiento.jefeRRHH
+        })
+      });
+      store.setState({
+        movimientos: newMovimiento
+      });
+    });
+}
