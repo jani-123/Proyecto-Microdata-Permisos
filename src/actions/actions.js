@@ -107,7 +107,7 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
   if (list !== undefined) {
     ids = list.length;
   }
-  
+  let estado = []
   const objetPermiso = {
     id: ids,
     tipoOcurrencia: ocurrenciaSelect,
@@ -115,8 +115,7 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
     fechaRetorno: fechaRetorno,
     motivo: motivoInput,
     compensacion: seletinput,
-    estado: false,
-    jefeRRHH: null
+    estado:estado
   }
 
   database
@@ -125,6 +124,7 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
 }
 
 export const changeView = id => {
+  console.log("linea 126:" , id)
   store.setState({
     selectIdPermisos: id
   });
@@ -136,11 +136,46 @@ export const change = id => {
   });
 };
 
+export const approvedPermission = (valor,observacion,idPermisos) => {
+  console.log(valor,observacion,idPermisos);
+  let list = [...store.getState().movimientos];
+  let ids = 0;
+  if (list !== undefined) {
+    ids = list[idPermisos].estado.length;
+  }
+  const estado = {
+    id: ids,
+    estado: valor,
+    observacion: observacion
+  };
+
+  database
+    .ref(
+      "users/" +
+        store.getState().user.id +
+        "/movimiento/" +
+        list[idPermisos].id +
+        "/estado/" +
+        estado.id
+    )
+    .set(estado);
+};
+
 function readDataPermiso() {
   database.ref("users/" + store.getState().user.id + "/movimiento/").on("value", res => {
       let newMovimiento = [];
       res.forEach(snap => {
         const nexMovimiento = snap.val();
+        let arrObservacion = [];
+        database.ref("users/" + store.getState().user.id + "/movimiento/" + nexMovimiento.id + "/estado/").on("value", res =>{
+          res.forEach(snap => {
+              arrObservacion.push({
+                id: arrObservacion.id,
+                estado: arrObservacion.valor,
+                observacion: arrObservacion.observacion
+              })
+          })
+        })
         newMovimiento.push({
           id: nexMovimiento.id,
           tipoOcurrencia: nexMovimiento.tipoOcurrencia,
@@ -148,8 +183,7 @@ function readDataPermiso() {
           fechaRetorno: nexMovimiento.fechaRetorno,
           motivo: nexMovimiento.motivo,
           compensacion: nexMovimiento.compensacion,
-          estado: nexMovimiento.estado,
-          jefeRRHH: nexMovimiento.jefeRRHH
+          estado: arrObservacion
         })
       });
       store.setState({

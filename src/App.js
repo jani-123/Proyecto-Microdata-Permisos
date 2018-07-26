@@ -22,11 +22,11 @@ const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectI
       <Route path="/Employe" render={() => <FirstViewEmploye successLogin={successLogin} user={user} />} />
       <Route path="/RequestEmploye" render={() => <RequestEmploye successLogin={successLogin} user={user} ocurrencias={ocurrencias} movimientos={movimientos}/>} />
       <Route path="/DetailEmploye" render={() => <DetailEmploye successLogin={successLogin} user={user} selectIdDetalle={selectIdDetalle} movimientos={movimientos}/>} />
-      <Route path="/HistoryEmploye" render={() => <HistoryEmploye successLogin={successLogin} user={user} selectIdDetalle={selectIdDetalle} movimientos={movimientos}/>} />
+      <Route path="/HistoryEmploye" render={() => <HistoryEmploye successLogin={successLogin} user={user} movimientos={movimientos}/>} />
 
       <Route path="/Admin" render={() => <FirstViewAdmin  successLogin={successLogin} user={user}/>} />  
       <Route path="/ReportAdmin" render={() => <ReportAdmin successLogin={successLogin} user={user} permisos={permisos} />} />
-      <Route path="/RequestAdmin" render={() => <RequestAdmin successLogin={successLogin} user={user} permisos={permisos} />} />
+      <Route path="/RequestAdmin" render={() => <RequestAdmin successLogin={successLogin} user={user} permisos={permisos}  selectIdPermisos={selectIdPermisos}/>} />
       <Route path="/DetailAdmin" render={() => <DetailAdmin successLogin={successLogin} user={user} permisos={permisos} selectIdPermisos={selectIdPermisos}/>} />
       <Route path="/HistoryAdmin" render={() => <HistoryAdmin successLogin={successLogin} user={user} permisos={permisos} />} />
     </Switch>

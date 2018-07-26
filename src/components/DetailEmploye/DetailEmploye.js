@@ -50,7 +50,7 @@ const DetailEmploye = ({ successLogin, user, selectIdDetalle, movimientos }) => 
                       <h4>Fecha/Hora Retorno {item.fechaRetorno}</h4>
                       <h4>Tipo de permiso: {item.tipoOcurrencia}</h4>
                       <h4>Motivo: {item.motivo}</h4>
-                      <h4>Tipo: No</h4>
+                      <h4>Estado: No</h4>
                       <hr />
                     </div>
                   )

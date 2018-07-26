@@ -3,9 +3,9 @@ import { Button, Col} from 'react-bootstrap';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 import { NavLink, Redirect } from "react-router-dom";
 import admin from '../EmployeFirstView/img/admin_woman.png';
-import { signOut } from "../../actions/actions";
+import { signOut , approvedPermission} from "../../actions/actions";
 
-const RequestAdmin = ({ successLogin, user }) => {
+const RequestAdmin = ({ successLogin, user, selectIdPermisos, permisos}) => {
   return (
     <div>
       <Col lg={12}>
@@ -37,18 +37,35 @@ const RequestAdmin = ({ successLogin, user }) => {
           <div className="border-request">
             <form>
               <Col xs={12} md={12}>
+              
                 <h2>Solicitud de Movimiento de Personal</h2>
-                <h4>Solicitado por: {user.nombres}</h4>
-                <h4>Fecha/Hora Salida 07/04/17 - 08:00 a.m.</h4>
-                <h4>Fecha/Hora Retorno 07/04/17 - 10:00 a.m.</h4>
-                <h4>Tipo de permiso: Personal</h4>
-                <h4>Motivo: Cita Médica</h4>
-                <h4>Tipo: Compensación</h4>
-                <hr />
-                <div className="text-center">
-                  <NavLink to='/ReportAdmin'><Button bsSize="large">Aprobar <i class="fa fa-check" aria-hidden="true"></i></Button></NavLink>
-                  <NavLink to='/ReportAdmin'><Button bsSize="large">Denegar <i class="fa fa-times" aria-hidden="true"></i></Button></NavLink>
-                </div>
+                { 
+                permisos.map((item,index)=>{
+                  if(index === selectIdPermisos){
+                    return (
+                      <div>
+                          <h4>Solicitado por: {item.nombres}</h4>
+                          <h4>Fecha/Hora Salida {item.fechaSalida}</h4>
+                          <h4>Fecha/Hora Retorno {item.fechaRetorno}</h4>
+                          <h4>Tipo de permiso: {item.tipoOcurrencia}</h4>
+                          <h4>Motivo: {item.motivo}</h4>
+                          <h4>Estado: No</h4>
+                          <label>Observaciones</label>
+                          <textarea className="form-control" rows="3" onChange={e =>
+                            this.observaciones = e.currentTarget.value}></textarea>
+                          <hr />
+                          <div className="text-center">
+                            <button id="Aprobado" onClick={(e) => {
+                            approvedPermission(true, this.observaciones, selectIdPermisos);}}>Aprobar Permiso<i className="fa fa-check" aria-hidden="true"></i></button>
+                            <button id="Aprobado" onClick={(e) => {
+                            approvedPermission(false , this.observaciones, selectIdPermisos);}}>Desaprobar Permiso<i className="fa fa-check" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      )
+                    }
+                    
+                  })
+              }
               </Col>
 
             </form>

@@ -47,7 +47,7 @@ const HistoryEmploye = ({ successLogin, user, movimientos }) => {
             </Col>
             <Col xs={12} md={12}>
               <h1>Historial</h1>
-              <table>
+              <table> 
                 <tbody>
                   {movimientos.map((item, index) => {
                     return (

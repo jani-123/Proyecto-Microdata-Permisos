@@ -8,7 +8,7 @@ import './HistoryAdmin.css';
 import '../EmployeFirstView/FirstView.css';
 const HistoryAdmin = ({ successLogin, user , permisos}) => {
   return (
-    <div>
+    <div> 
       <Col lg={12}>
         {!successLogin && <Redirect to="/" />}
         <input type="checkbox" className="checkbox-admin" id="menu-toogle" />
@@ -74,9 +74,10 @@ const HistoryAdmin = ({ successLogin, user , permisos}) => {
                           <td>{item.fechaRetorno}</td>
                           <td>{item.tipoOcurrencia}</td>
                           <td>{item.estado}</td>
-                          <td><Button className="disabled">Observar solicitud</Button></td>
+                          <td><NavLink to='/RequestAdmin' className="btn btn-primary" onClick={() => {
+                            changeView(index);}}>Observar solicitud</NavLink></td>
                           <td><NavLink to='/DetailAdmin' onClick={() => {
-                            changeView(item.id);
+                            changeView(index);
                           }}><Button>Ver detalles</Button></NavLink></td>
                         </tr>
                       </tbody>
