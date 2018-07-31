@@ -66,37 +66,39 @@ auth.onAuthStateChanged(user => {
             tipoUser: fullUserInfo.tipoUser,
           }
         });
-          readDataPermiso();
+           readDataPermiso();
           if (fullUserInfo.tipoUser === 'admin') {
-          let permisos = [];
-          database.ref("/users").once("value").then(res => {
-            res.forEach(snap => {
-              let worker = snap.val()
-              console.log(worker);
-              const nombres = worker.nombres;
-              const email = worker.email;
-              const tipo = worker.tipoUser;
-              if (tipo !== 'admin' && worker.movimiento) {
-                console.log("movimiento", worker );
-                  
-                worker.movimiento.forEach(item => {
-                  console.log("12", item);
-                  console.log("data", item.estado);
-                  if (!item.estado) {
-                    console.log("condicion", item.estado)
-                    permisos.push(Object.assign(item, {
-                      nombres,
-                      email
-                    }))
-                  }
-                }) 
-              }
-            });
-            store.setState({
-              permisos: permisos
-            });
-          })
-        }
+            let permisos = [];
+            database.ref("/users").once("value").then(res => {
+              res.forEach(snap => {
+                let worker = snap.val()
+                console.log("linea 75: ",worker);
+                const nombres = worker.nombres;
+                const email = worker.email;
+                const tipo = worker.tipoUser;
+                if (tipo !== 'admin' && worker.movimiento) {
+                  console.log("linea 80: ", worker );
+                    
+                  worker.movimiento.forEach(item => {
+                    console.log("linea 83: ", item);
+                    console.log("linea  84: ", item.active);
+                    if (!item.active) {
+                      console.log("linea 86: ", item.active)
+                      permisos.push(Object.assign(item, {
+                        nombres,
+                        email
+                      }))
+                      console.log("linea 91: ", permisos)
+                    }
+                  }) 
+                }
+              });
+              store.setState({
+                permisos: permisos
+              });
+            })
+          }
+         
       });
   }
 });
@@ -107,7 +109,7 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
   if (list !== undefined) {
     ids = list.length;
   }
-  let estado = []
+  
   const objetPermiso = {
     id: ids,
     tipoOcurrencia: ocurrenciaSelect,
@@ -115,7 +117,8 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
     fechaRetorno: fechaRetorno,
     motivo: motivoInput,
     compensacion: seletinput,
-    estado:estado
+    active: false,
+    porAprobar:[],
   }
 
   database
@@ -137,28 +140,30 @@ export const change = id => {
 };
 
 export const approvedPermission = (valor,observacion,idPermisos) => {
-  console.log(valor,observacion,idPermisos);
-  let list = [...store.getState().movimientos];
+   let newPermisos = [...store.getState().permisos];
   let ids = 0;
-  if (list !== undefined) {
-    ids = list[idPermisos].estado.length;
+  if (newPermisos !== undefined) {
+    ids = newPermisos[idPermisos].porAprobar.length;
   }
-  const estado = {
+  const porAprobarse = {
     id: ids,
     estado: valor,
     observacion: observacion
   };
-
+  
+  store.setState({
+    active: false
+  });
   database
     .ref(
       "users/" +
         store.getState().user.id +
-        "/movimiento/" +
-        list[idPermisos].id +
-        "/estado/" +
-        estado.id
+        "/permisos/" +
+        newPermisos[idPermisos].id +
+        "/porAprobar/" +
+        porAprobarse.id
     )
-    .set(estado);
+    .set(porAprobarse);
 };
 
 function readDataPermiso() {
@@ -183,7 +188,8 @@ function readDataPermiso() {
           fechaRetorno: nexMovimiento.fechaRetorno,
           motivo: nexMovimiento.motivo,
           compensacion: nexMovimiento.compensacion,
-          estado: arrObservacion
+          active: nexMovimiento.active,
+          porAprobar: arrObservacion
         })
       });
       store.setState({
