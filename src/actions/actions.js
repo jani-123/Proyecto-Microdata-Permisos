@@ -15,38 +15,6 @@ export function signOut() {
     }
   });
 }
-
-/*export function SignIn(user, pass) {
-  auth.signInWithEmailAndPassword(user, pass).then(userObj => {
-    database
-      .ref("users/" + userObj.uid)
-      .once("value")
-      .then(res => {
-        const fullUserInfo = res.val();
-        console.log("full info ", fullUserInfo);
-        store.setState({
-          user: {
-            id: userObj.uid,
-            nombres: fullUserInfo.nombres,
-            email: fullUserInfo.email,
-            tipoUser: fullUserInfo.tipoUser,
-          }
-        });
-          readDataPermiso();
-      });
-  });
-}*/
-/*auth.onAuthStateChanged(user => {
- 
-  if (user) {
-    console.log("user", user);
-    let usersRef = database.ref("/users");
-    let userRef = usersRef.child(user.uid);
-    store.setState({
-      successLogin: true
-    });
-  }
-});*/
 auth.onAuthStateChanged(user => {
 
   if (user) {
@@ -66,7 +34,7 @@ auth.onAuthStateChanged(user => {
             tipoUser: fullUserInfo.tipoUser,
           }
         });
-           readDataPermiso();
+          readDataPermiso();
           if (fullUserInfo.tipoUser === 'admin') {
             let permisos = [];
             database.ref("/users").once("value").then(res => {
@@ -98,7 +66,7 @@ auth.onAuthStateChanged(user => {
               });
             })
           }
-         
+
       });
   }
 });
@@ -109,8 +77,7 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
   if (list !== undefined) {
     ids = list.length;
   }
-  
-  const objetPermiso = {
+  let objetPermiso = {
     id: ids,
     tipoOcurrencia: ocurrenciaSelect,
     fechaSalida: fechaSalida,
@@ -118,12 +85,13 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
     motivo: motivoInput,
     compensacion: seletinput,
     active: false,
-    porAprobar:[],
-  }
-
+    respuestas: [],
+  };
+ console.log("linea 90: ", objetPermiso);
   database
     .ref("users/" + store.getState().user.id + "/movimiento/" + objetPermiso.id)
     .set(objetPermiso);
+     console.log("linea 94:",store.getState());
 }
 
 export const changeView = id => {
@@ -141,29 +109,25 @@ export const change = id => {
 
 export const approvedPermission = (valor,observacion,idPermisos) => {
    let newPermisos = [...store.getState().permisos];
-  let ids = 0;
-  if (newPermisos !== undefined) {
-    ids = newPermisos[idPermisos].porAprobar.length;
-  }
-  const porAprobarse = {
-    id: ids,
+   console.log("linea 112: ", newPermisos);
+   let newId = newPermisos[idPermisos].respuestas.length;
+   if(!newId)
+      newId = 0;
+
+  let objectAprobar = {
+    id: newPermisos[idPermisos].respuestas.length,
     estado: valor,
-    observacion: observacion
+    observacion: observacion,
   };
   
   store.setState({
     active: false
   });
   database
-    .ref(
-      "users/" +
-        store.getState().user.id +
-        "/permisos/" +
-        newPermisos[idPermisos].id +
-        "/porAprobar/" +
-        porAprobarse.id
-    )
-    .set(porAprobarse);
+    .ref("users/" + store.getState().user.id + "/permisos/" + newPermisos[idPermisos].id + "/respuestas/" + objectAprobar.id)
+    .set(objectAprobar);
+    
+   
 };
 
 function readDataPermiso() {
@@ -172,7 +136,7 @@ function readDataPermiso() {
       res.forEach(snap => {
         const nexMovimiento = snap.val();
         let arrObservacion = [];
-        database.ref("users/" + store.getState().user.id + "/movimiento/" + nexMovimiento.id + "/estado/").on("value", res =>{
+        database.ref("users/" + store.getState().user.id + "/movimiento/" + nexMovimiento.id + "/respuestas/").on("value", res =>{
           res.forEach(snap => {
               arrObservacion.push({
                 id: arrObservacion.id,
@@ -189,7 +153,7 @@ function readDataPermiso() {
           motivo: nexMovimiento.motivo,
           compensacion: nexMovimiento.compensacion,
           active: nexMovimiento.active,
-          porAprobar: arrObservacion
+          respuestas: arrObservacion
         })
       });
       store.setState({

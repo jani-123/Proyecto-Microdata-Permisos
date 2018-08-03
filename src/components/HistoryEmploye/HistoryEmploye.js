@@ -1,7 +1,6 @@
 
 import React, { Fragment } from "react";
 import {
-  Table,
   Button,
   Col
 } from 'react-bootstrap';
