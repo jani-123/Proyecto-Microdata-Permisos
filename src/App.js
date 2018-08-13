@@ -15,7 +15,7 @@ import HistoryAdmin from "./components/HistoryAdmin/HistoryAdmin.js";
 import { connect } from "redux-zero/react";
 import { HashRouter, Switch, Route } from "react-router-dom"; 
 
-const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos}) => {
+const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos, constID}) => {
   return <HashRouter>
     <Switch>
       <Route exact path="/" render={() => <Login successLogin={successLogin} user={user} />} />
@@ -26,11 +26,11 @@ const MicroDataApp = ({ successLogin, user, date, ocurrencias, permisos, selectI
 
       <Route path="/Admin" render={() => <FirstViewAdmin  successLogin={successLogin} user={user}/>} />  
       <Route path="/ReportAdmin" render={() => <ReportAdmin successLogin={successLogin} user={user} permisos={permisos} />} />
-      <Route path="/RequestAdmin" render={() => <RequestAdmin successLogin={successLogin} user={user} permisos={permisos}  selectIdPermisos={selectIdPermisos}/>} />
+      <Route path="/RequestAdmin" render={() => <RequestAdmin successLogin={successLogin} user={user} permisos={permisos}  selectIdPermisos={selectIdPermisos} constID={constID}/>} />
       <Route path="/DetailAdmin" render={() => <DetailAdmin successLogin={successLogin} user={user} permisos={permisos} selectIdPermisos={selectIdPermisos}/>} />
       <Route path="/HistoryAdmin" render={() => <HistoryAdmin successLogin={successLogin} user={user} permisos={permisos} />} />
     </Switch>
   </HashRouter>;
 };
-const mapToProps = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos }) => ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos});
+const mapToProps = ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos, constID}) => ({ successLogin, user, date, ocurrencias, permisos, selectIdPermisos, selectIdDetalle, movimientos, constID});
 export default connect(mapToProps)(MicroDataApp);

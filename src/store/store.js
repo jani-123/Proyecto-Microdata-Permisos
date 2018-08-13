@@ -14,6 +14,7 @@ const initialState = {
   successLogin: false,
   selectIdPermisos: 0,
   selectIdDetalle: 0,// usa para el detalle del permiso
+  constID: 0, // solo sirve para cambiar el id
   user: { // para el usuario
     id: null,
     nombres: null,

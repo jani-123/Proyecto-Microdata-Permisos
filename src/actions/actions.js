@@ -109,13 +109,14 @@ export const change = id => {
   });
 };
 
-export const approvedPermission = (valor,observacion,idPermisos) => {
+export const approvedPermission = (valor,observacion,idPermisos,constID) => {
    let newPermisos = [...store.getState().permisos];
    console.log("linea 112: ", newPermisos);
-   let newId = newPermisos[idPermisos].length;
+   /*let newId = newPermisos[idPermisos].length;*/
+
 
   let objectAprobar = {
-    id: newPermisos[idPermisos].id,
+    id: constID,
     nombres:newPermisos[idPermisos].nombres,
     email: newPermisos[idPermisos].email,
     tipoOcurrencia: newPermisos[idPermisos].tipoOcurrencia,
@@ -133,7 +134,8 @@ export const approvedPermission = (valor,observacion,idPermisos) => {
   };
   console.log("linea 134:",objectAprobar);
   store.setState({
-    active: false
+    active: false,
+    constID: constID += 1
   });
   database
     .ref("users/" + store.getState().user.id + "/permisos/" + objectAprobar.id)

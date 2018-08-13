@@ -5,7 +5,7 @@ import { NavLink, Redirect } from "react-router-dom";
 import admin from '../EmployeFirstView/img/admin_woman.png';
 import { signOut , approvedPermission} from "../../actions/actions";
 
-const RequestAdmin = ({ successLogin, user, selectIdPermisos, permisos}) => {
+const RequestAdmin = ({ successLogin, user, selectIdPermisos, permisos, constID}) => {
   return (
     <div>
       <Col lg={12}>
@@ -56,9 +56,9 @@ const RequestAdmin = ({ successLogin, user, selectIdPermisos, permisos}) => {
                           <hr />
                           <div className="text-center">
                             <button id="Aprobado" onClick={(e) => {
-                            approvedPermission(true, this.observaciones, selectIdPermisos);}}>Aprobar Permiso<i className="fa fa-check" aria-hidden="true"></i></button>
+                            approvedPermission(true, this.observaciones, selectIdPermisos , constID);}}>Aprobar Permiso<i className="fa fa-check" aria-hidden="true"></i></button>
                             <button id="Aprobado" onClick={(e) => {
-                            approvedPermission(false , this.observaciones, selectIdPermisos);}}>Desaprobar Permiso<i className="fa fa-check" aria-hidden="true"></i></button>
+                            approvedPermission(false , this.observaciones, selectIdPermisos , constID);}}>Desaprobar Permiso<i className="fa fa-check" aria-hidden="true"></i></button>
                           </div>
                         </div>
                       )
