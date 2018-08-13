@@ -61,6 +61,7 @@ auth.onAuthStateChanged(user => {
                   }) 
                 }
               });
+              console.log("linea 64:",permisos);
               store.setState({
                 permisos: permisos
               });
@@ -85,13 +86,14 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
     motivo: motivoInput,
     compensacion: seletinput,
     active: false,
-    respuestas: [],
+    respuestas: false,
   };
  console.log("linea 90: ", objetPermiso);
   database
     .ref("users/" + store.getState().user.id + "/movimiento/" + objetPermiso.id)
     .set(objetPermiso);
-     console.log("linea 94:",store.getState());
+    console.log("linea 94: ", objetPermiso);
+     console.log("linea 95:",store.getState());
 }
 
 export const changeView = id => {
@@ -110,27 +112,58 @@ export const change = id => {
 export const approvedPermission = (valor,observacion,idPermisos) => {
    let newPermisos = [...store.getState().permisos];
    console.log("linea 112: ", newPermisos);
-   let newId = newPermisos[idPermisos].respuestas.length;
-   if(!newId)
-      newId = 0;
+   let newId = newPermisos[idPermisos].length;
 
   let objectAprobar = {
-    id: newPermisos[idPermisos].respuestas.length,
-    estado: valor,
-    observacion: observacion,
+    id: newPermisos[idPermisos].id,
+    nombres:newPermisos[idPermisos].nombres,
+    email: newPermisos[idPermisos].email,
+    tipoOcurrencia: newPermisos[idPermisos].tipoOcurrencia,
+    fechaSalida: newPermisos[idPermisos].fechaSalida,
+    fechaRetorno: newPermisos[idPermisos].fechaRetorno,
+    motivo: newPermisos[idPermisos].motivo,
+    compensacion: newPermisos[idPermisos].compensacion,
+    active: newPermisos[idPermisos].active,
+    respuestas: newPermisos[idPermisos].respuestas,
+    Observado:[{ 
+        id: newPermisos[idPermisos].id,
+        estado: valor,
+        observacion: observacion,
+    }],
   };
-  
+  console.log("linea 134:",objectAprobar);
   store.setState({
     active: false
   });
   database
-    .ref("users/" + store.getState().user.id + "/permisos/" + newPermisos[idPermisos].id + "/respuestas/" + objectAprobar.id)
+    .ref("users/" + store.getState().user.id + "/permisos/" + objectAprobar.id)
     .set(objectAprobar);
     
    
 };
 
 function readDataPermiso() {
+  database.ref("users/" + store.getState().user.id + "/movimiento/").on("value", res => {
+      let arrMovimiento = [];
+      res.forEach(snap => {
+        const nexMovimiento = snap.val();
+        arrMovimiento.push({
+          id: nexMovimiento.id,
+          tipoOcurrencia: nexMovimiento.tipoOcurrencia,
+          fechaSalida: nexMovimiento.fechaSalida,
+          fechaRetorno: nexMovimiento.fechaRetorno,
+          motivo: nexMovimiento.motivo,
+          compensacion: nexMovimiento.compensacion,
+          active: nexMovimiento.active,
+          respuestas: nexMovimiento.respuestas
+        })
+      });
+      store.setState({
+        movimientos: arrMovimiento
+      });
+    });
+}
+/*function readDataPermiso() {
   database.ref("users/" + store.getState().user.id + "/movimiento/").on("value", res => {
       let newMovimiento = [];
       res.forEach(snap => {
@@ -160,4 +193,4 @@ function readDataPermiso() {
         movimientos: newMovimiento
       });
     });
-}
+}*/

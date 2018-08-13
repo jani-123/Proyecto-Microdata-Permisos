@@ -51,7 +51,8 @@ const DetailAdmin = ({ successLogin, user , permisos , selectIdPermisos}) => {
                     <h4>Fecha/Hora Retorno {item.fechaRetorno}</h4>
                     <h4>Tipo de permiso: {item.tipoOcurrencia}</h4>
                     <h4>Motivo: {item.motivo}</h4>
-                    <h4>Estado: No</h4>
+                    <h4>Compensacion de Horas: {item.compensacion ? "No" : "Si"}</h4>
+                    <h4>Aprobado: {item.respuestas ? "No" : "Si"}</h4>
                     <hr />
                   </div>
                 )
