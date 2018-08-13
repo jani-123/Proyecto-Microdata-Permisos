@@ -24,6 +24,7 @@ const initialState = {
   ocurrencias: Permisos, // para lista de casos de permisos
   movimientos: [], // para los permisos-movimiento
   permisos: [],
+  permisosAceptados: [],
   estado:[],
   date: new Date(), // fecha
   active:false // login

@@ -13,7 +13,6 @@ import userportada from '../EmployeFirstView/img/user2.png';
 import logoportada from '../EmployeFirstView/img/logo_portada.png';
 
 const HistoryEmploye = ({ successLogin, user, movimientos }) => {
-  console.log("linea 17:", movimientos);
   return (
     <div>
       <Col lg={12}>

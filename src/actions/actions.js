@@ -18,13 +18,11 @@ export function signOut() {
 auth.onAuthStateChanged(user => {
 
   if (user) {
-    console.log("user", user);
     database
       .ref("users/" + user.uid)
       .once("value")
       .then(res => {
         const fullUserInfo = res.val();
-        console.log("full info ", fullUserInfo);
         store.setState({
           successLogin: true,
           user: {
@@ -40,28 +38,20 @@ auth.onAuthStateChanged(user => {
             database.ref("/users").once("value").then(res => {
               res.forEach(snap => {
                 let worker = snap.val()
-                console.log("linea 75: ",worker);
                 const nombres = worker.nombres;
                 const email = worker.email;
                 const tipo = worker.tipoUser;
                 if (tipo !== 'admin' && worker.movimiento) {
-                  console.log("linea 80: ", worker );
-                    
                   worker.movimiento.forEach(item => {
-                    console.log("linea 83: ", item);
-                    console.log("linea  84: ", item.active);
                     if (!item.active) {
-                      console.log("linea 86: ", item.active)
                       permisos.push(Object.assign(item, {
                         nombres,
                         email
                       }))
-                      console.log("linea 91: ", permisos)
                     }
                   }) 
                 }
               });
-              console.log("linea 64:",permisos);
               store.setState({
                 permisos: permisos
               });
@@ -88,16 +78,12 @@ export const addDataEmploye = (fechaSalida, fechaRetorno, motivoInput, seletinpu
     active: false,
     respuestas: false,
   };
- console.log("linea 90: ", objetPermiso);
   database
     .ref("users/" + store.getState().user.id + "/movimiento/" + objetPermiso.id)
     .set(objetPermiso);
-    console.log("linea 94: ", objetPermiso);
-     console.log("linea 95:",store.getState());
 }
 
 export const changeView = id => {
-  console.log("linea 126:" , id)
   store.setState({
     selectIdPermisos: id
   });
@@ -110,11 +96,7 @@ export const change = id => {
 };
 
 export const approvedPermission = (valor,observacion,idPermisos,constID) => {
-   let newPermisos = [...store.getState().permisos];
-   console.log("linea 112: ", newPermisos);
-   /*let newId = newPermisos[idPermisos].length;*/
-
-
+  let newPermisos = [...store.getState().permisos];
   let objectAprobar = {
     id: constID,
     nombres:newPermisos[idPermisos].nombres,
@@ -132,7 +114,6 @@ export const approvedPermission = (valor,observacion,idPermisos,constID) => {
         observacion: observacion,
     }],
   };
-  console.log("linea 134:",objectAprobar);
   store.setState({
     active: false,
     constID: constID += 1
@@ -164,35 +145,37 @@ function readDataPermiso() {
         movimientos: arrMovimiento
       });
     });
-}
-/*function readDataPermiso() {
-  database.ref("users/" + store.getState().user.id + "/movimiento/").on("value", res => {
-      let newMovimiento = [];
+  database.ref("users/" + store.getState().user.id + "/permisos/").on("value", res => {
+      let arrPermisos = [];
       res.forEach(snap => {
-        const nexMovimiento = snap.val();
-        let arrObservacion = [];
-        database.ref("users/" + store.getState().user.id + "/movimiento/" + nexMovimiento.id + "/respuestas/").on("value", res =>{
+        const nexPermisos = snap.val();
+        let arrObservado = [];
+        database.ref("users/" + store.getState().user.id + "/permisos/" + nexPermisos.id + "/Observado/").on("value", res =>{
           res.forEach(snap => {
-              arrObservacion.push({
-                id: arrObservacion.id,
-                estado: arrObservacion.valor,
-                observacion: arrObservacion.observacion
+            const nexObservado = snap.val();
+              arrObservado.push({
+                id: nexObservado.id,
+                estado: nexObservado.estado,
+                observacion: nexObservado.observacion
               })
           })
         })
-        newMovimiento.push({
-          id: nexMovimiento.id,
-          tipoOcurrencia: nexMovimiento.tipoOcurrencia,
-          fechaSalida: nexMovimiento.fechaSalida,
-          fechaRetorno: nexMovimiento.fechaRetorno,
-          motivo: nexMovimiento.motivo,
-          compensacion: nexMovimiento.compensacion,
-          active: nexMovimiento.active,
-          respuestas: arrObservacion
+        arrPermisos.push({
+          id: nexPermisos.id,
+          nombres:nexPermisos.nombres,
+          email: nexPermisos.email,
+          tipoOcurrencia: nexPermisos.tipoOcurrencia,
+          fechaSalida: nexPermisos.fechaSalida,
+          fechaRetorno: nexPermisos.fechaRetorno,
+          motivo: nexPermisos.motivo,
+          compensacion: nexPermisos.compensacion,
+          active: nexPermisos.active,
+          respuestas: nexPermisos.respuestas,
+          Observado: arrObservado
         })
       });
       store.setState({
-        movimientos: newMovimiento
+        permisosAceptados: arrPermisos
       });
     });
-}*/
+}

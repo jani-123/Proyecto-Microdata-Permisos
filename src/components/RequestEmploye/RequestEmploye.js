@@ -51,11 +51,9 @@ class MyDate extends React.Component {
 const RequestEmploye = ({ successLogin, user, ocurrencias, movimientos}) => {
   const begin = date => {
     this.fechaSalida = date.toString();
-    console.log(this.fechaSalida);
   }
   const end = date => {
     this.fechaRetorno = date.toString();
-    console.log(this.fechaRetorno);
   }
 
   return (

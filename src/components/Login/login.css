@@ -1,6 +1,4 @@
 #login{
-   /* background:#39b341;*/
-   /*background: #005c91; azul*/
    height: 100vh; 
 }
 
@@ -57,6 +55,7 @@
     height: 50px;
     border-radius: 10px;
     border: 2px solid #343434;
+    font-size: 20px;
 }
 
 .formulario{

@@ -15,10 +15,9 @@ class Test extends Component {
   render() {
     return (
       <div className="text-center report-admin">
-
         <Table id="table-to-xls" responsive>
         {
-          this.props.permisos.map((items, index) =>{
+          this.props.permisosAceptados.map((items, index) =>{
             return(
               <thead>
                 <tr>
@@ -29,10 +28,10 @@ class Test extends Component {
                 </tr>
               <tbody>
                 <tr>
-                  <td>{this.props.user.nombres}</td>
+                  <td>{items.nombres}</td>
                   <td>{items.fechaSalida}</td>
                   <td>{items.tipoOcurrencia}</td>
-                  <td>Aprobado</td>
+                  <td>{items.Observado.map((item,index)=>{return(<p>{item.estado ? "Aprobado" : "Desaprobado"}</p>)})}</td>
                 </tr>
               </tbody>
               </thead>
@@ -52,7 +51,7 @@ class Test extends Component {
   }
 }
 
-const ReportAdmin = ({ successLogin, user , permisos }) => {
+const ReportAdmin = ({ successLogin, user , permisosAceptados }) => {
   return (
     <div>
       {!successLogin && <Redirect to="/" />}
@@ -84,7 +83,7 @@ const ReportAdmin = ({ successLogin, user , permisos }) => {
 
           </Col>
           <Col xs={12} md={12}>
-            <Test permisos={permisos} user={user} />
+            <Test permisosAceptados={permisosAceptados} user={user} />
           </Col>
 
         </Col>
@@ -95,5 +94,7 @@ const ReportAdmin = ({ successLogin, user , permisos }) => {
 
   );
 };
+
+
 
 export default ReportAdmin;
